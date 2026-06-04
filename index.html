@@ -21,6 +21,24 @@
   <!-- Shared CSS file used by every page on this website. -->
   <link rel="stylesheet" href="styles.css" />
 
+  <style>
+    .site-logo {
+      height: 64px;
+      width: auto;
+      display: block;
+    }
+
+    .footer-logo .site-logo {
+      height: 56px;
+    }
+
+    @media (max-width: 640px) {
+      .site-logo {
+        height: 52px;
+      }
+    }
+  </style>
+
   <!-- Google Font import for a clean modern/bohemian feel. -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -34,8 +52,7 @@
   <header class="site-header">
     <nav class="navbar container" aria-label="Main navigation">
       <a class="logo" href="index.html" aria-label="Rocky Oak Properties home">
-        <span class="logo-mark">RO</span>
-        <span class="logo-text">Rocky Oak Properties</span>
+        <img src="images/logo.png" alt="Rocky Oak Properties Logo" class="site-logo" />
       </a>
 
       <!-- Mobile menu button. JavaScript toggles the navigation links open/closed. -->
@@ -151,9 +168,8 @@
   <footer class="site-footer">
     <div class="container footer-grid">
       <div>
-        <a class="logo footer-logo" href="index.html">
-          <span class="logo-mark">RO</span>
-          <span class="logo-text">Rocky Oak Properties</span>
+        <a class="logo footer-logo" href="index.html" aria-label="Rocky Oak Properties home">
+          <img src="images/logo.png" alt="Rocky Oak Properties Logo" class="site-logo" />
         </a>
         <p>Modern bohemian property improvements in Middle Tennessee.</p>
       </div>
