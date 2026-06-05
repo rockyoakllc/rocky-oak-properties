@@ -165,7 +165,37 @@ document.addEventListener("DOMContentLoaded", () => {
     if (event.key === "Escape") closeLightbox();
   });
 
-    /* -----------------------------
+  /* -----------------------------
+     Contact form project prefill
+  ----------------------------- */
+
+  const serviceSelect = document.querySelector("#service");
+  const messageField = document.querySelector("#message");
+
+  if (serviceSelect) {
+    const projectTemplates = {
+      "move-in": "Hi Rocky Oak,\n\nI'm interested in learning more about your Move-In & Home Setup service.\n\nProject Details:",
+      "styling": "Hi Rocky Oak,\n\nI'm interested in learning more about your Interior Styling & Refresh service.\n\nProject Details:",
+      "room-design": "Hi Rocky Oak,\n\nI'm interested in learning more about your Room Design service.\n\nProject Details:",
+      "sourcing": "Hi Rocky Oak,\n\nI'm interested in learning more about your Furniture & Decor Selection service.\n\nProject Details:",
+      "installation": "Hi Rocky Oak,\n\nI'm interested in learning more about your Installation & Handyman Services.\n\nProject Details:",
+      "painting-wallpaper": "Hi Rocky Oak,\n\nI'm interested in learning more about your Painting & Wallpaper service.\n\nProject Details:",
+      "complete-home": "Hi Rocky Oak,\n\nI'm interested in learning more about the Rocky Oak Complete Home Package.\n\nProject Details:",
+    };
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const selectedProject = urlParams.get("project");
+
+    if (selectedProject && projectTemplates[selectedProject]) {
+      serviceSelect.value = selectedProject;
+
+      if (messageField && !messageField.value.trim()) {
+        messageField.value = projectTemplates[selectedProject];
+      }
+    }
+  }
+
+  /* -----------------------------
      Contact form validation
   ----------------------------- */
 
