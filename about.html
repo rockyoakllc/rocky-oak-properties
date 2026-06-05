@@ -5,6 +5,109 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>About Us | Rocky Oak Properties</title>
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    .about-story-grid {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      align-items: center;
+      gap: 64px;
+    }
+
+    .about-collage {
+      position: relative;
+      min-height: 560px;
+    }
+
+    .collage-card {
+      position: absolute;
+      overflow: hidden;
+      border: 12px solid var(--warm-white);
+      border-radius: var(--radius-lg);
+      background: var(--warm-white);
+      box-shadow: var(--shadow);
+    }
+
+    .collage-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .collage-card.primary-photo {
+      top: 0;
+      left: 0;
+      width: 78%;
+      height: 390px;
+      z-index: 2;
+    }
+
+    .collage-card.secondary-photo {
+      right: 0;
+      bottom: 0;
+      width: 58%;
+      height: 300px;
+      z-index: 3;
+    }
+
+    .collage-note {
+      position: absolute;
+      left: 36px;
+      bottom: 42px;
+      z-index: 4;
+      max-width: 230px;
+      padding: 16px 18px;
+      border-radius: 18px;
+      background: rgba(255, 250, 242, 0.92);
+      box-shadow: 0 12px 34px rgba(37, 35, 31, 0.12);
+      font-weight: 800;
+      color: var(--charcoal);
+    }
+
+    .story-highlight {
+      margin-top: 26px;
+      padding: 22px 24px;
+      border-left: 5px solid var(--terracotta);
+      border-radius: 18px;
+      background: rgba(184, 121, 85, 0.1);
+      color: var(--charcoal);
+      font-weight: 700;
+    }
+
+    .feature-image.project-photo img {
+      object-position: center;
+    }
+
+    @media (max-width: 900px) {
+      .about-story-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .about-collage {
+        min-height: 500px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .about-collage {
+        min-height: auto;
+        display: grid;
+        gap: 18px;
+      }
+
+      .collage-card,
+      .collage-card.primary-photo,
+      .collage-card.secondary-photo,
+      .collage-note {
+        position: static;
+        width: 100%;
+        height: auto;
+      }
+
+      .collage-card img {
+        height: 280px;
+      }
+    }
+  </style>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
@@ -38,22 +141,40 @@
     </section>
 
     <section class="section">
-      <div class="container split-grid">
-        <div class="reveal">
-          <p class="eyebrow">Who we are</p>
-          <h2>A hands-on team with an eye for warm, livable design.</h2>
+      <div class="container about-story-grid">
+        <div class="about-collage reveal" aria-label="Ryan, Krystal, Ziggy, and Marley photo collage">
+          <div class="collage-card primary-photo">
+            <img src="images/ryan-krystal.jpg" alt="Ryan and Krystal of Rocky Oak Properties" />
+          </div>
+          <div class="collage-card secondary-photo">
+            <img src="images/ziggy-marley.JPEG" alt="Ziggy and Marley, the Rocky Oak family dogs" />
+          </div>
+          <div class="collage-note">Family, home, and thoughtful details are at the heart of what we do.</div>
         </div>
+
         <div class="reveal">
+          <p class="eyebrow">Meet Ryan & Krystal</p>
+          <h2>A hands-on team with construction roots and a passion for livable design.</h2>
           <p>
-            We believe the best homes are not just beautiful — they are functional,
-            comfortable, and built around how people actually live. Our projects can
-            include cabinet installation, painting, styling, wall treatments, finishing
-            details, small repairs, and move-in support.
+            Ryan and Krystal both grew up around construction. With fathers who were
+            general contractors and handymen, they learned at a young age how much care,
+            problem-solving, and craftsmanship goes into making a house feel complete.
           </p>
           <p>
-            The Rocky Oak look is clean and modern with bohemian warmth: natural wood,
-            soft neutrals, greenery, woven textures, simple lines, and intentional accents.
+            Those early experiences shaped a shared passion for helping people turn a
+            house into a home. Ryan brings a background in the tech industry and an
+            engineering mindset, while Krystal has always carried a passion for affordable
+            interior design and creating warm, approachable spaces.
           </p>
+          <p>
+            Together, they balance each other out: practical planning, thoughtful design,
+            clear communication, and a belief that beautiful spaces should feel personal,
+            functional, and within reach.
+          </p>
+          <div class="story-highlight">
+            Family is a big part of who they are. Ryan and Krystal care deeply for their
+            two dogs, Ziggy and Marley, and hope to grow their family one day.
+          </div>
         </div>
       </div>
     </section>
@@ -69,8 +190,8 @@
             <li>We care about the small finishing details that make a room feel done.</li>
           </ul>
         </div>
-        <div class="feature-image reveal">
-          <img src="https://images.unsplash.com/photo-1618220179428-22790b461013?auto=format&fit=crop&w=1200&q=80" alt="Warm neutral interior design details" />
+        <div class="feature-image project-photo reveal">
+          <img src="images/project-about.jpg" alt="Completed Rocky Oak Properties home project" />
         </div>
       </div>
     </section>
