@@ -113,8 +113,8 @@ document.addEventListener("DOMContentLoaded", () => {
       return `
         <article class="project-card reveal" data-category="${category}">
           <div class="before-after-slider" data-slider>
-            <img class="before-image" src="${basePath}/before-01.jpeg" alt="Before ${title}" />
-            <div class="after-image-wrap"><img class="after-image" src="${basePath}/after-01.jpeg" alt="After ${title}" /></div>
+            <img class="before-image" src="${basePath}/after-01.jpeg" alt="Before ${title}" />
+            <div class="after-image-wrap"><img class="after-image" src="${basePath}/before-01.jpeg" alt="After ${title}" /></div>
             <span class="image-label before-label">Before</span><span class="image-label after-label">After</span>
             <input class="slider-range" type="range" min="0" max="100" value="50" aria-label="Compare ${title}" />
           </div>
@@ -318,31 +318,6 @@ document.addEventListener("DOMContentLoaded", () => {
       updatePortfolioCarousel();
     }
   });
-
-  /* -----------------------------
-     Contact form project prefill
-  ----------------------------- */
-
-  const serviceSelect = document.querySelector("#service");
-  const messageField = document.querySelector("#message");
-
-  if (serviceSelect) {
-    const projectTemplates = {
-      "move-in": "Hi Rocky Oak,\n\nI'm interested in learning more about your Move-In & Home Setup service.\n\nProject Details:",
-      "styling": "Hi Rocky Oak,\n\nI'm interested in learning more about your Interior Styling & Refresh service.\n\nProject Details:",
-      "room-design": "Hi Rocky Oak,\n\nI'm interested in learning more about your Room Design service.\n\nProject Details:",
-      "sourcing": "Hi Rocky Oak,\n\nI'm interested in learning more about your Furniture & Decor Selection service.\n\nProject Details:",
-      "installation": "Hi Rocky Oak,\n\nI'm interested in learning more about your Installation & Handyman Services.\n\nProject Details:",
-      "painting-wallpaper": "Hi Rocky Oak,\n\nI'm interested in learning more about your Painting & Wallpaper service.\n\nProject Details:",
-      "complete-home": "Hi Rocky Oak,\n\nI'm interested in learning more about the Rocky Oak Complete Home Package.\n\nProject Details:",
-    };
-
-    const selectedProject = new URLSearchParams(window.location.search).get("project");
-    if (selectedProject && projectTemplates[selectedProject]) {
-      serviceSelect.value = selectedProject;
-      if (messageField && !messageField.value.trim()) messageField.value = projectTemplates[selectedProject];
-    }
-  }
 
   /* -----------------------------
      Contact form validation
