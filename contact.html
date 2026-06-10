@@ -56,17 +56,17 @@
           <input id="email" name="email" type="email" placeholder="you@example.com" required />
 
           <label for="service">Project Type</label>
-          <select id="service" name="service" required>
-            <option value="">Choose one</option>
+          <select id="service" name="service" multiple size="8" required>
             <option value="move-in">Move-In & Home Setup</option>
             <option value="styling">Interior Styling & Refresh</option>
             <option value="room-design">Room Design</option>
             <option value="sourcing">Furniture & Decor Selection</option>
             <option value="installation">Installation & Handyman Services</option>
             <option value="painting-wallpaper">Painting & Wallpaper</option>
-            <option value="complete-home">Rocky Oak Complete Home Package</option>
+            <option value="custom-package">Custom Package / Not Sure Yet</option>
             <option value="other">Other</option>
           </select>
+          <p class="form-hint">Select one or more services. On desktop, hold Command on Mac or Ctrl on Windows to select multiple options.</p>
 
           <label for="message">Project Details</label>
           <textarea id="message" name="message" rows="6" placeholder="Tell us about your project..." required></textarea>
@@ -86,6 +86,6 @@
     </div>
     <div class="container copyright"><p>&copy; <span id="year"></span> Rocky Oak Properties LLC. All rights reserved.</p></div>
   </footer>
-  <script src="script.js" defer></script>
+  <script src="script.js?v=contact-multiselect-1" defer></script>
 </body>
 </html>
