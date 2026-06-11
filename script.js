@@ -126,7 +126,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }).join("");
   }
 
-  const createPhotoButton = (src, alt) => `<button class="lightbox-trigger reveal" type="button"><img src="${src}" alt="${alt}" /></button>`;
+  const createPhotoButton = (src, alt) => `<button class="lightbox-trigger reveal visible" type="button"><img src="${src}" alt="${alt}" /></button>`;
 
   const createExpandablePhotoGallery = ({ container, totalPhotos, initialCount, imagePath, altPrefix, viewAllText, showFewerText }) => {
     if (!container) return;
