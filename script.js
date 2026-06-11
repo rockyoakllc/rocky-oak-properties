@@ -9,6 +9,9 @@ document.addEventListener("DOMContentLoaded", () => {
     .header-logo-image{height:64px;width:auto;display:block}
     .footer-brand-logo{height:112px;width:auto;display:block;margin-bottom:14px}
     .footer-brand-text{max-width:330px;color:var(--muted);line-height:1.7}
+    .flip-gallery-toggle-wrap{display:flex;justify-content:center;margin:10px 0 34px}
+    .flip-gallery-toggle{border:1px solid var(--terracotta);border-radius:999px;background:transparent;color:var(--terracotta);padding:12px 18px;font-weight:800;cursor:pointer;transition:background .2s ease,color .2s ease,transform .2s ease}
+    .flip-gallery-toggle:hover{background:var(--terracotta);color:var(--warm-white);transform:translateY(-1px)}
     @media(max-width:640px){.header-logo-image{height:52px}.footer-brand-logo{height:92px}}
   `;
   document.head.appendChild(brandStyles);
@@ -125,19 +128,62 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const createPhotoButton = (src, alt) => `<button class="lightbox-trigger reveal" type="button"><img src="${src}" alt="${alt}" /></button>`;
 
-  if (flipBeforeContainer) {
-    flipBeforeContainer.innerHTML = Array.from({ length: 17 }, (_, index) => {
-      const number = String(index + 1).padStart(2, "0");
-      return createPhotoButton(`images/flip-renovation/before/before-${number}.jpeg`, `Flip renovation before photo ${index + 1}`);
-    }).join("");
-  }
+  const createExpandablePhotoGallery = ({ container, totalPhotos, initialCount, imagePath, altPrefix, viewAllText, showFewerText }) => {
+    if (!container) return;
 
-  if (flipAfterContainer) {
-    flipAfterContainer.innerHTML = Array.from({ length: 20 }, (_, index) => {
-      const number = String(index + 1).padStart(2, "0");
-      return createPhotoButton(`images/flip-renovation/after/before-${number}.jpeg`, `Flip renovation after photo ${index + 1}`);
-    }).join("");
-  }
+    let isExpanded = false;
+
+    const renderPhotos = () => {
+      const visiblePhotos = isExpanded ? totalPhotos : initialCount;
+      container.innerHTML = Array.from({ length: visiblePhotos }, (_, index) => {
+        const number = String(index + 1).padStart(2, "0");
+        return createPhotoButton(imagePath(number), `${altPrefix} ${index + 1}`);
+      }).join("");
+    };
+
+    renderPhotos();
+
+    if (totalPhotos <= initialCount) return;
+
+    const toggleWrap = document.createElement("div");
+    toggleWrap.className = "flip-gallery-toggle-wrap reveal";
+
+    const toggleButton = document.createElement("button");
+    toggleButton.className = "flip-gallery-toggle";
+    toggleButton.type = "button";
+    toggleButton.textContent = viewAllText;
+    toggleButton.setAttribute("aria-expanded", "false");
+
+    toggleButton.addEventListener("click", () => {
+      isExpanded = !isExpanded;
+      renderPhotos();
+      toggleButton.textContent = isExpanded ? showFewerText : viewAllText;
+      toggleButton.setAttribute("aria-expanded", String(isExpanded));
+    });
+
+    toggleWrap.appendChild(toggleButton);
+    container.insertAdjacentElement("afterend", toggleWrap);
+  };
+
+  createExpandablePhotoGallery({
+    container: flipBeforeContainer,
+    totalPhotos: 17,
+    initialCount: 4,
+    imagePath: (number) => `images/flip-renovation/before/before-${number}.jpeg`,
+    altPrefix: "Flip renovation before photo",
+    viewAllText: "+ View All Before Photos",
+    showFewerText: "Show Fewer Before Photos",
+  });
+
+  createExpandablePhotoGallery({
+    container: flipAfterContainer,
+    totalPhotos: 20,
+    initialCount: 6,
+    imagePath: (number) => `images/flip-renovation/after/before-${number}.jpeg`,
+    altPrefix: "Flip renovation after photo",
+    viewAllText: "+ View All After Photos",
+    showFewerText: "Show Fewer After Photos",
+  });
 
   if (portfolioCardsContainer) {
     portfolioCardsContainer.innerHTML = Object.entries(portfolioProjects).map(([projectKey, project]) => `
@@ -212,7 +258,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const lightbox = document.querySelector("#lightbox");
   const lightboxImage = document.querySelector("#lightboxImage");
   const lightboxClose = document.querySelector(".lightbox-close");
-  const lightboxTriggers = document.querySelectorAll(".lightbox-trigger");
 
   const closeLightbox = () => {
     if (!lightbox || !lightboxImage) return;
@@ -221,15 +266,25 @@ document.addEventListener("DOMContentLoaded", () => {
     lightboxImage.src = "";
   };
 
-  lightboxTriggers.forEach((trigger) => {
-    trigger.addEventListener("click", () => {
-      const image = trigger.querySelector("img");
-      if (!image || !lightbox || !lightboxImage) return;
-      lightboxImage.src = image.src;
-      lightboxImage.alt = image.alt;
-      lightbox.classList.add("open");
-      lightbox.setAttribute("aria-hidden", "false");
+  const attachLightboxTriggers = () => {
+    document.querySelectorAll(".lightbox-trigger").forEach((trigger) => {
+      if (trigger.dataset.lightboxReady === "true") return;
+      trigger.dataset.lightboxReady = "true";
+      trigger.addEventListener("click", () => {
+        const image = trigger.querySelector("img");
+        if (!image || !lightbox || !lightboxImage) return;
+        lightboxImage.src = image.src;
+        lightboxImage.alt = image.alt;
+        lightbox.classList.add("open");
+        lightbox.setAttribute("aria-hidden", "false");
+      });
     });
+  };
+
+  attachLightboxTriggers();
+
+  document.querySelectorAll(".flip-gallery-toggle").forEach((button) => {
+    button.addEventListener("click", attachLightboxTriggers);
   });
 
   if (lightboxClose) lightboxClose.addEventListener("click", closeLightbox);
