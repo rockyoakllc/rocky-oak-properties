@@ -9,6 +9,9 @@ document.addEventListener("DOMContentLoaded", () => {
     .header-logo-image{height:64px;width:auto;display:block}
     .footer-brand-logo{height:112px;width:auto;display:block;margin-bottom:14px}
     .footer-brand-text{max-width:330px;color:var(--muted);line-height:1.7}
+    .footer-instagram-link{width:42px;height:42px;display:inline-flex;align-items:center;justify-content:center;margin-top:16px;border:1px solid var(--line);border-radius:50%;color:var(--charcoal);background:rgba(255,250,242,.72);transition:transform .2s ease,background .2s ease,color .2s ease,border-color .2s ease}
+    .footer-instagram-link:hover{transform:translateY(-2px);background:var(--terracotta);border-color:var(--terracotta);color:var(--warm-white)}
+    .footer-instagram-icon{width:22px;height:22px;display:block;fill:currentColor}
     .flip-gallery-toggle-wrap{display:flex;justify-content:center;margin:10px 0 34px}
     .flip-gallery-toggle{border:1px solid var(--terracotta);border-radius:999px;background:transparent;color:var(--terracotta);padding:12px 18px;font-weight:800;cursor:pointer;transition:background .2s ease,color .2s ease,transform .2s ease}
     .flip-gallery-toggle:hover{background:var(--terracotta);color:var(--warm-white);transform:translateY(-1px)}
@@ -29,6 +32,11 @@ document.addEventListener("DOMContentLoaded", () => {
         <img src="images/logo.png" alt="Rocky Oak Properties" class="footer-brand-logo" />
       </a>
       <p class="footer-brand-text">Helping houses become homes in Nashville and the surrounding areas.</p>
+      <a class="footer-instagram-link" href="https://www.instagram.com/rockyoakproperties/" target="_blank" rel="noopener noreferrer" aria-label="Rocky Oak Properties on Instagram">
+        <svg class="footer-instagram-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4c0 3.2-2.6 5.8-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8C2 4.6 4.6 2 7.8 2Zm0 2C5.7 4 4 5.7 4 7.8v8.4C4 18.3 5.7 20 7.8 20h8.4c2.1 0 3.8-1.7 3.8-3.8V7.8C20 5.7 18.3 4 16.2 4H7.8Zm4.2 3.2a4.8 4.8 0 1 1 0 9.6 4.8 4.8 0 0 1 0-9.6Zm0 2a2.8 2.8 0 1 0 0 5.6 2.8 2.8 0 0 0 0-5.6Zm5-2.1a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2Z" />
+        </svg>
+      </a>
     `;
   }
 
