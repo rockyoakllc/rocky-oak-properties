@@ -1,3 +1,16 @@
+const GA_MEASUREMENT_ID = "G-QSDR0257ZG";
+
+const googleAnalyticsSnippet = `
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', '${GA_MEASUREMENT_ID}');
+  </script>
+`;
+
 const jsonResponse = (body, status = 200) =>
   new Response(JSON.stringify(body), {
     status,
@@ -15,6 +28,30 @@ const escapeHtml = (value = "") =>
     .replace(/'/g, "&#039;");
 
 const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+const shouldInjectAnalytics = (request, response) => {
+  if (request.method !== "GET") return false;
+  const contentType = response.headers.get("content-type") || "";
+  return contentType.includes("text/html");
+};
+
+async function addGoogleAnalytics(request, response) {
+  if (!shouldInjectAnalytics(request, response)) return response;
+
+  const html = await response.text();
+  const updatedHtml = html.includes(GA_MEASUREMENT_ID)
+    ? html
+    : html.replace("</head>", `${googleAnalyticsSnippet}\n</head>`);
+
+  const headers = new Headers(response.headers);
+  headers.delete("content-length");
+
+  return new Response(updatedHtml, {
+    status: response.status,
+    statusText: response.statusText,
+    headers,
+  });
+}
 
 async function handleContactRequest(request, env) {
   if (request.method !== "POST") {
@@ -98,6 +135,7 @@ export default {
       return handleContactRequest(request, env);
     }
 
-    return env.ASSETS.fetch(request);
+    const response = await env.ASSETS.fetch(request);
+    return addGoogleAnalytics(request, response);
   },
 };
